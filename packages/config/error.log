@@ -1,0 +1,23 @@
+[34mCLI[39m Building entry: src/index.ts
+[34mCLI[39m Using tsconfig: tsconfig.json
+[34mCLI[39m tsup v8.5.1
+[34mCLI[39m Target: es6
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js [22m[32m1.29 KB[39m
+[32mCJS[39m ⚡️ Build success in 52ms
+[32mESM[39m [1mdist\index.mjs [22m[32m303.00 B[39m
+[32mESM[39m ⚡️ Build success in 51ms
+[34mDTS[39m Build start
+src/index.ts(1,23): error TS2688: Cannot find type definition file for 'node'.
+src/index.ts(8,17): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+src/index.ts(9,16): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+
+[31mError: error occurred in dts build
+    at Worker.<anonymous> (C:\Users\choi9\.gemini\antigravity\scratch\monorepo-framework\node_modules\tsup\dist\index.js:1545:26)
+    at Worker.emit (node:events:508:28)
+    at MessagePort.<anonymous> (node:internal/worker:332:53)
+    at [nodejs.internal.kHybridDispatch] (node:internal/event_target:843:20)
+    at MessagePort.<anonymous> (node:internal/per_context/messageport:23:28)[39m
+[31mDTS[39m [31mBuild error[39m

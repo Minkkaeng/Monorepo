@@ -1,0 +1,15 @@
+[34mCLI[39m Building entry: src/index.ts
+[34mCLI[39m Using tsconfig: tsconfig.json
+[34mCLI[39m tsup v8.5.1
+[34mCLI[39m Target: es6
+[34mCLI[39m Cleaning output folder
+[34mCJS[39m Build start
+[34mESM[39m Build start
+[32mCJS[39m [1mdist\index.js [22m[32m1.29 KB[39m
+[32mCJS[39m ⚡️ Build success in 371ms
+[32mESM[39m [1mdist\index.mjs [22m[32m303.00 B[39m
+[32mESM[39m ⚡️ Build success in 385ms
+[34mDTS[39m Build start
+[32mDTS[39m ⚡️ Build success in 4895ms
+[32mDTS[39m [1mdist\index.d.ts  [22m[32m242.00 B[39m
+[32mDTS[39m [1mdist\index.d.mts [22m[32m242.00 B[39m
