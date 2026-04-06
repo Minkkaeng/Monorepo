@@ -1,6 +1,7 @@
 import React from "react";
 import { X } from "lucide-react";
 import { cn } from "@framework/utils";
+import { useScrollLock } from "@framework/hooks";
 
 interface ModalProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface ModalProps {
   hasOverlay?: boolean;      // 오버레이 유무
   isCentered?: boolean;     // 중앙 정렬 여부
   isGlassmorphism?: boolean; // 오버레이 글래스모피즘 효과 유무
+  lockScroll?: boolean;     // 배경 스크롤 잠금 여부
   className?: string;
 }
 
@@ -23,8 +25,12 @@ export const Modal: React.FC<ModalProps> = ({
   hasOverlay = true,
   isCentered = true,
   isGlassmorphism = true,
+  lockScroll = true,
   className,
 }) => {
+  // 모달이 열려 있을 때 배경 스크롤 잠금 제어
+  useScrollLock(isOpen && lockScroll);
+
   if (!isOpen) return null;
 
   return (
@@ -40,12 +46,13 @@ export const Modal: React.FC<ModalProps> = ({
       )}
       
       <div className={cn(
-        "relative bg-white w-full max-w-2xl rounded-[3rem] shadow-3xl overflow-hidden animate-zoom-in",
+        "relative bg-white w-full max-w-2xl rounded-[3.5rem] shadow-3xl overflow-hidden animate-zoom-in",
+        "max-h-[90vh] flex flex-col",
         isCentered ? "text-center" : "text-left",
         className
       )}>
         {(title || showCloseButton) && (
-          <div className="p-10 flex justify-between items-center border-b border-gray-50 bg-gray-50/50">
+          <div className="p-10 flex justify-between items-center border-b border-gray-50 bg-gray-50/50 shrink-0">
             {title && <h3 className="text-2xl font-black text-gray-900 tracking-tighter">{title}</h3>}
             {showCloseButton && (
               <button 
@@ -58,7 +65,13 @@ export const Modal: React.FC<ModalProps> = ({
           </div>
         )}
         
-        <div className="p-10">
+        {/* 내부 스크롤 영역: 스크롤바 숨김 처리 */}
+        <div className="p-10 overflow-y-auto flex-1 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <style dangerouslySetInnerHTML={{ __html: `
+            .scrollbar-hide::-webkit-scrollbar {
+              display: none;
+            }
+          `}} />
           <div className="text-gray-500 font-medium leading-relaxed">
             {children}
           </div>

@@ -12,3 +12,4 @@ export * from "./Features";
 export * from "./Footer";
 export * from "./Pricing";
 export * from "./ContactForm";
+export * from "./SignupForm";

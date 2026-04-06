@@ -14,12 +14,13 @@
 | **CartSidebar.tsx** | 쇼핑 장바구니 | `isOpen`, `showHeader` |
 | **Pricing.tsx** | 가격 정책 테이블 | `isFeatured`, `hasShadow` |
 | **Features.tsx** | 서비스 강점 그리드 | `isCardStyle`, `showIcons` |
-| **ConcatForm.tsx** | 문의/연락 폼 | `showInfo`, `isCardStyle` |
+| **ContactForm.tsx** | 문의/연락 폼 | `showInfo`, `isCardStyle` |
+| **SignupForm.tsx** | 회원가입/검증 폼 | `withIdCheck`, `withPasswordMatch` |
 | **Accordion.tsx** | FAQ / 접기/펴기 | `allowMultiple`, `isFlush` |
 | **Toast.tsx** | 알림 메시지 | `hasIcon`, `hasCloseButton` |
 | **Button.tsx** | 프리미엄 버튼 | `variant`, `size` |
 | **Input.tsx** | 고기능 입력 필드 | `label`, `error` |
-| **Modal.tsx** | 상세 정보 팝업 | `isCentered`, `isGlass` |
+| **Modal.tsx** | 상세 정보 팝업 | `isCentered`, `isGlass`, `lockScroll` |
 | **Footer.tsx** | 사이트 하단 정보 | `isDark`, `showNewsletter` |
 
 ## ⚡ 사용 방법
