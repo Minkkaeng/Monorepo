@@ -13,3 +13,5 @@ export * from "./Footer";
 export * from "./Pricing";
 export * from "./ContactForm";
 export * from "./SignupForm";
+export * from "./Board";
+export * from "./Scroll";
