@@ -1,5 +1,5 @@
 {
-  "extends": "@framework/tsconfig/react-library.json",
+  "extends": "@framework/tsconfig/vanilla-library.json",
   "compilerOptions": {
     "outDir": "dist",
     "baseUrl": ".",

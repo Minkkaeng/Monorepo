@@ -1,5 +1,6 @@
 {
   "name": "monorepo-framework",
+  "version": "1.1.0",
   "private": true,
   "packageManager": "npm@10.5.0",
   "workspaces": [
@@ -10,7 +11,8 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "serve": "node examples/server.js"
   },
   "devDependencies": {
     "@types/node": "^25.5.2",

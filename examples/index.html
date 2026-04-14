@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@framework/ui Web Components 예제</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fade-in-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes zoom-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    @keyframes slide-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slide-in-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .animate-fade-in { animation: fade-in 0.3s ease-out; }
+    .animate-fade-in-up { animation: fade-in-up 0.4s ease-out; }
+    .animate-zoom-in { animation: zoom-in 0.3s ease-out; }
+    .animate-slide-up { animation: slide-up 0.5s ease-out; }
+    .animate-slide-in-right { animation: slide-in-right 0.3s ease-out; }
+    .animate-shake { animation: shake 0.3s ease-in-out; }
+    .animate-spin { animation: spin 1s linear infinite; }
+    /* 커스텀 엘리먼트 기본 display */
+    fw-button, fw-input, fw-toast { display: inline-block; }
+    fw-modal, fw-cart-sidebar, fw-toast-container { display: block; }
+    fw-banner, fw-hero, fw-features, fw-pricing, fw-footer, fw-contact-form, fw-signup-form, fw-accordion { display: block; }
+    fw-navigation, fw-product-card { display: block; }
+    fw-board-list, fw-board-detail, fw-board-form { display: block; }
+    fw-scroll-progress { display: block; position: fixed; top: 0; left: 0; height: 3px; background: #4f46e5; z-index: 999; transition: width 0.1s; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- 스크롤 프로그레스 바 -->
+  <fw-scroll-progress></fw-scroll-progress>
+
+  <script type="module">
+    import '/packages/ui/dist/index.mjs';
+
+    // 모든 컴포넌트 로드 완료 후 초기화
+    requestAnimationFrame(() => {
+      console.log('Web Components 로드 완료!');
+      init();
+    });
+
+    function init() {
+      // === Banner 데이터 ===
+      const banner = document.querySelector('fw-banner');
+      if (banner) {
+        banner.images = [
+          { src: 'https://picsum.photos/1200/400?random=1', alt: '배너 1', title: '프리미엄 프레임워크', subtitle: 'Web Components' },
+          { src: 'https://picsum.photos/1200/400?random=2', alt: '배너 2', title: '어디서나 동작', subtitle: 'Framework Agnostic' },
+          { src: 'https://picsum.photos/1200/400?random=3', alt: '배너 3', title: '쉽고 빠르게', subtitle: 'Plug & Play' },
+        ];
+      }
+
+      // === Accordion 데이터 ===
+      const accordion = document.querySelector('fw-accordion');
+      if (accordion) {
+        accordion.items = [
+          { title: 'Web Components란?', content: '브라우저 표준 기술로, 어떤 프레임워크에서도 사용 가능한 커스텀 HTML 엘리먼트입니다.' },
+          { title: 'Tailwind CSS와 호환되나요?', content: 'Light DOM을 사용하므로 Tailwind CSS 클래스가 그대로 적용됩니다.' },
+          { title: 'React/Vue 없이도 되나요?', content: '네! 순수 HTML/JS만으로 모든 컴포넌트를 사용할 수 있습니다.' },
+        ];
+      }
+
+      // === Features 데이터 ===
+      const features = document.querySelector('fw-features');
+      if (features) {
+        features.items = [
+          { icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>', title: '프레임워크 무관', description: 'React, Vue, Angular, 바닐라 JS 어디서든 사용 가능합니다.' },
+          { icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>', title: '쉬운 확장', description: '필요한 컴포넌트만 골라서 사용할 수 있습니다.' },
+          { icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 2-7 20-4-9-9-4Z"/><path d="m22 2-11 11"/></svg>', title: '빠른 개발', description: '빌드 한 번이면 어디서나 바로 사용 가능합니다.' },
+        ];
+      }
+
+      // === Pricing 데이터 ===
+      const pricing = document.querySelector('fw-pricing');
+      if (pricing) {
+        pricing.plans = [
+          { name: 'Starter', price: '무료', features: ['컴포넌트 5개', '기본 지원', '개인 프로젝트'], actionLabel: '시작하기' },
+          { name: 'Pro', price: '₩29,000', period: '/월', features: ['모든 컴포넌트', '우선 지원', '상업적 사용', '소스 코드'], isFeatured: true, actionLabel: '업그레이드' },
+          { name: 'Team', price: '₩99,000', period: '/월', features: ['무제한 프로젝트', '전용 지원', '커스텀 컴포넌트', '팀 라이선스'], actionLabel: '문의하기' },
+        ];
+      }
+
+      // === Footer 링크 ===
+      const footer = document.querySelector('fw-footer');
+      if (footer) {
+        footer.links = [
+          { title: 'Product', items: [{ label: 'Features', href: '#' }, { label: 'Pricing', href: '#' }, { label: 'Docs', href: '#' }] },
+          { title: 'Company', items: [{ label: 'About', href: '#' }, { label: 'Blog', href: '#' }, { label: 'Careers', href: '#' }] },
+          { title: 'Legal', items: [{ label: 'Privacy', href: '#' }, { label: 'Terms', href: '#' }] },
+        ];
+      }
+
+      // === ProductCard 이벤트 ===
+      document.querySelectorAll('fw-product-card').forEach(card => {
+        card.addEventListener('fw-action', () => {
+          showToast('success', `${card.getAttribute('name')} 장바구니에 추가!`);
+        });
+        card.addEventListener('fw-view', () => {
+          showToast('info', `${card.getAttribute('name')} 상세보기`);
+        });
+      });
+
+      // === 이벤트 리스너 ===
+
+      // 모달 닫기
+      document.addEventListener('fw-close', (e) => {
+        const target = e.target;
+        if (target.tagName === 'FW-MODAL') {
+          target.removeAttribute('open');
+        }
+        if (target.tagName === 'FW-CART-SIDEBAR') {
+          target.removeAttribute('open');
+        }
+      });
+
+      // 토스트 닫기
+      document.addEventListener('fw-toast-close', (e) => {
+        e.target.remove();
+      });
+
+      // Hero CTA
+      document.addEventListener('fw-primary-action', () => {
+        showToast('success', 'CTA 버튼 클릭!');
+      });
+
+      // Pricing 플랜 선택
+      document.addEventListener('fw-plan-select', (e) => {
+        showToast('info', `플랜 선택: ${e.detail?.name || ''}`);
+      });
+
+      // SignupForm
+      document.addEventListener('fw-signup', (e) => {
+        console.log('회원가입 데이터:', e.detail);
+        showToast('success', `회원가입 완료! (${e.detail?.username})`);
+      });
+
+      // ContactForm
+      document.addEventListener('fw-submit', (e) => {
+        console.log('문의 데이터:', e.detail);
+        showToast('success', '문의가 접수되었습니다!');
+      });
+
+      // Board 이벤트
+      const boardList = document.querySelector('fw-board-list');
+      if (boardList) {
+        boardList.posts = [
+          { id: 1, title: 'Web Components 소개', content: '브라우저 표준 기술입니다.', author: '홍길동', createdAt: '2026-04-14', views: 42 },
+          { id: 2, title: 'Tailwind CSS 연동 가이드', content: 'Light DOM을 사용하면 됩니다.', author: '김철수', createdAt: '2026-04-13', views: 28 },
+          { id: 3, title: 'Monorepo 구성 팁', content: 'Turborepo + npm workspaces 조합.', author: '이영희', createdAt: '2026-04-12', views: 15 },
+        ];
+      }
+
+      document.addEventListener('fw-post-click', (e) => {
+        showToast('info', `게시글 클릭: ${e.detail?.title || ''}`);
+      });
+    }
+
+    // === 전역 함수 ===
+    window.openModal = function() {
+      const modal = document.querySelector('fw-modal');
+      if (modal) modal.setAttribute('open', '');
+    };
+
+    window.openCart = function() {
+      const cart = document.querySelector('fw-cart-sidebar');
+      if (cart) {
+        cart.items = [
+          { id: 1, name: '프리미엄 티셔츠', price: 39000, image: 'https://picsum.photos/80/80?random=10' },
+          { id: 2, name: '캐주얼 팬츠', price: 59000, image: 'https://picsum.photos/80/80?random=11' },
+          { id: 3, name: '스니커즈', price: 89000, image: 'https://picsum.photos/80/80?random=12' },
+        ];
+        cart.setAttribute('open', '');
+      }
+    };
+
+    window.showToast = function(type, message) {
+      type = type || 'info';
+      message = message || '알림 메시지입니다.';
+      const container = document.querySelector('fw-toast-container');
+      if (!container) return;
+      const toast = document.createElement('fw-toast');
+      toast.setAttribute('toast-id', String(Date.now()));
+      toast.setAttribute('message', message);
+      toast.setAttribute('type', type);
+      toast.setAttribute('duration', '4000');
+      container.appendChild(toast);
+    };
+  </script>
+
+  <div class="max-w-6xl mx-auto px-4 py-12 space-y-20">
+
+    <div class="text-center space-y-2">
+      <h1 class="text-5xl font-black text-gray-900 tracking-tight">@framework/ui</h1>
+      <p class="text-xl text-gray-400 font-medium">Web Components 라이브러리 - 프레임워크 없이 동작</p>
+    </div>
+
+    <!-- ===================== Button ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Button</h2>
+      <div class="flex flex-wrap gap-4 items-center">
+        <fw-button variant="primary">Primary</fw-button>
+        <fw-button variant="secondary">Secondary</fw-button>
+        <fw-button variant="outline">Outline</fw-button>
+        <fw-button variant="ghost">Ghost</fw-button>
+        <fw-button variant="danger">Danger</fw-button>
+      </div>
+      <div class="flex flex-wrap gap-4 items-center">
+        <fw-button variant="primary" size="sm">Small</fw-button>
+        <fw-button variant="primary" size="md">Medium</fw-button>
+        <fw-button variant="primary" size="lg">Large</fw-button>
+        <fw-button variant="primary" loading>Loading...</fw-button>
+        <fw-button variant="primary" disabled>Disabled</fw-button>
+      </div>
+    </section>
+
+    <!-- ===================== Input ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Input</h2>
+      <div class="max-w-md space-y-4">
+        <fw-input label="이름" placeholder="홍길동" name="name"></fw-input>
+        <fw-input label="이메일" type="email" placeholder="example@email.com" name="email"></fw-input>
+        <fw-input label="에러 예시" error="필수 입력 항목입니다." name="error-demo"></fw-input>
+        <fw-input label="둥글지 않은 입력" is-rounded="false" placeholder="rounded-none" name="flat"></fw-input>
+      </div>
+    </section>
+
+    <!-- ===================== Modal ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Modal</h2>
+      <button onclick="openModal()" class="px-6 py-3 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all">
+        모달 열기
+      </button>
+      <fw-modal title="환영합니다!">
+        <p class="text-lg">이것은 Web Components로 만든 모달입니다.</p>
+        <p class="mt-4 text-gray-400">ESC 키, 오버레이 클릭, 또는 닫기 버튼으로 닫을 수 있습니다.</p>
+        <div class="mt-8 p-6 bg-indigo-50 rounded-2xl">
+          <p class="text-indigo-600 font-bold">Shadow DOM 없이 Tailwind CSS가 그대로 적용됩니다!</p>
+        </div>
+      </fw-modal>
+    </section>
+
+    <!-- ===================== Toast ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Toast</h2>
+      <div class="flex flex-wrap gap-4">
+        <button onclick="showToast('success', '성공적으로 저장되었습니다!')" class="px-5 py-2.5 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-all">Success Toast</button>
+        <button onclick="showToast('error', '오류가 발생했습니다.')" class="px-5 py-2.5 bg-red-500 text-white font-bold rounded-xl hover:bg-red-600 transition-all">Error Toast</button>
+        <button onclick="showToast('info', '새로운 알림이 있습니다.')" class="px-5 py-2.5 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-600 transition-all">Info Toast</button>
+      </div>
+      <fw-toast-container></fw-toast-container>
+    </section>
+
+    <!-- ===================== Banner ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Banner (이미지 슬라이더)</h2>
+      <fw-banner></fw-banner>
+    </section>
+
+    <!-- ===================== Hero ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Hero</h2>
+      <fw-hero
+        title="Web Components로 만든 UI"
+        subtitle="Framework Agnostic"
+        description="React, Vue, Angular 없이도 동작하는 프리미엄 컴포넌트 라이브러리"
+        primary-action-label="시작하기"
+        secondary-action-label="더 알아보기"
+        background-image="https://picsum.photos/1400/600?random=5"
+      ></fw-hero>
+    </section>
+
+    <!-- ===================== Features ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Features</h2>
+      <fw-features title="주요 기능" subtitle="Why Choose Us"></fw-features>
+    </section>
+
+    <!-- ===================== Product Cards ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Product Card</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <fw-product-card name="프리미엄 티셔츠" price="39000" image="https://picsum.photos/400/500?random=20" category="의류"></fw-product-card>
+        <fw-product-card name="캐주얼 팬츠" price="59000" image="https://picsum.photos/400/500?random=21" category="하의" show-description description="편안한 핏의 캐주얼 팬츠입니다."></fw-product-card>
+        <fw-product-card name="스니커즈" price="89000" image="https://picsum.photos/400/500?random=22" category="신발"></fw-product-card>
+      </div>
+    </section>
+
+    <!-- ===================== Cart Sidebar ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Cart Sidebar</h2>
+      <button onclick="openCart()" class="px-6 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-gray-800 transition-all">
+        장바구니 열기 (3개 아이템)
+      </button>
+      <fw-cart-sidebar></fw-cart-sidebar>
+    </section>
+
+    <!-- ===================== Accordion ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Accordion</h2>
+      <div class="max-w-2xl">
+        <fw-accordion></fw-accordion>
+      </div>
+    </section>
+
+    <!-- ===================== Pricing ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Pricing</h2>
+      <fw-pricing title="요금제 선택"></fw-pricing>
+    </section>
+
+    <!-- ===================== Signup Form ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Signup Form</h2>
+      <fw-signup-form></fw-signup-form>
+    </section>
+
+    <!-- ===================== Contact Form ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Contact Form</h2>
+      <fw-contact-form></fw-contact-form>
+    </section>
+
+    <!-- ===================== Board ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Board (게시판)</h2>
+      <fw-board-list></fw-board-list>
+    </section>
+
+    <!-- ===================== Footer ===================== -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-black text-gray-800 border-b pb-4">Footer</h2>
+    </section>
+  </div>
+
+  <fw-footer description="프리미엄 Web Components 프레임워크. 어떤 환경에서도 동작합니다.">
+    <span data-slot="logo" class="text-2xl font-black tracking-tighter">FRAMEWORK<span class="text-indigo-600">.</span></span>
+  </fw-footer>
+
+  <!-- Scroll To Top -->
+  <fw-scroll-to-top show-at="400" class="fixed bottom-8 right-8 p-4 bg-indigo-600 text-white rounded-2xl shadow-xl hover:bg-indigo-700 transition-all cursor-pointer z-50">
+    ↑ Top
+  </fw-scroll-to-top>
+
+</body>
+</html>
