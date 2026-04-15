@@ -3,7 +3,7 @@ import { cn } from '@framework/utils';
 
 class FwHero extends HTMLElement {
   static get observedAttributes() {
-    return ['title', 'subtitle', 'description', 'background-image', 'is-centered', 'is-full-height', 'has-overlay', 'primary-action-label', 'secondary-action-label'];
+    return ['title', 'subtitle', 'description', 'background-image', 'is-centered', 'is-full-height', 'has-overlay', 'primary-action-label', 'secondary-action-label', 'is-full-width'];
   }
 
   private _boundClickHandler: ((e: Event) => void) | null = null;
@@ -39,12 +39,14 @@ class FwHero extends HTMLElement {
     const backgroundImage = this.getAttribute('background-image') || '';
     const isCentered = this._getBool('is-centered', true);
     const isFullHeight = this._getBool('is-full-height', false);
+    const isFullWidth = this._getBool('is-full-width', false);
     const hasOverlay = this._getBool('has-overlay', true);
     const primaryLabel = this.getAttribute('primary-action-label') || '';
     const secondaryLabel = this.getAttribute('secondary-action-label') || '';
 
     const sectionClass = cn(
-      'relative overflow-hidden flex items-center bg-gray-900 rounded-[3rem] mx-4 my-8',
+      'relative overflow-hidden flex items-center bg-gray-900',
+      isFullWidth ? 'w-full' : 'mx-4 my-8 rounded-[3rem]',
       isFullHeight ? 'min-h-screen' : 'min-h-[600px]',
       isCentered ? 'justify-center text-center' : 'justify-start text-left'
     );
@@ -88,7 +90,7 @@ class FwHero extends HTMLElement {
         ${bgHtml}
         <div class="${contentClass}">
           ${subtitleHtml}
-          <h1 class="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter leading-none animate-slide-up">${title}</h1>
+          <h1 class="text-4xl md:text-8xl font-black text-white mb-8 tracking-tighter leading-none animate-slide-up">${title}</h1>
           ${descHtml}
           ${buttonsHtml}
         </div>

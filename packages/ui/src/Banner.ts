@@ -30,8 +30,12 @@ class FwBanner extends HTMLElement {
     return this._images;
   }
 
-  set images(val: BannerImage[]) {
-    this._images = val;
+  set images(val: BannerImage[] | string) {
+    if (typeof val === 'string') {
+      try { this._images = JSON.parse(val); } catch { this._images = []; }
+    } else {
+      this._images = Array.isArray(val) ? val : [];
+    }
     this._currentIndex = 0;
     this._update();
   }

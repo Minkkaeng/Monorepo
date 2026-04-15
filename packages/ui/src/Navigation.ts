@@ -24,8 +24,12 @@ class FwNavigation extends HTMLElement {
     return this._links;
   }
 
-  set links(val: NavLink[]) {
-    this._links = val;
+  set links(val: NavLink[] | string) {
+    if (typeof val === 'string') {
+      try { this._links = JSON.parse(val); } catch { this._links = []; }
+    } else {
+      this._links = Array.isArray(val) ? val : [];
+    }
     this._update();
   }
 

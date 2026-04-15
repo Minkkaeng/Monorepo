@@ -27,8 +27,12 @@ class FwFeatures extends HTMLElement {
     return this._items;
   }
 
-  set items(val: FeatureItem[]) {
-    this._items = val;
+  set items(val: FeatureItem[] | string) {
+    if (typeof val === 'string') {
+      try { this._items = JSON.parse(val); } catch { this._items = []; }
+    } else {
+      this._items = Array.isArray(val) ? val : [];
+    }
     this._update();
   }
 

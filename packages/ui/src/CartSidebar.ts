@@ -11,7 +11,7 @@ export interface CartItem {
 
 class FwCartSidebar extends HTMLElement {
   static get observedAttributes() {
-    return ['open', 'show-footer', 'show-header', 'has-animation'];
+    return ['open', 'show-footer', 'show-header', 'has-animation', 'items'];
   }
 
   private _items: CartItem[] = [];
@@ -29,8 +29,12 @@ class FwCartSidebar extends HTMLElement {
     return this._items;
   }
 
-  set items(val: CartItem[]) {
-    this._items = Array.isArray(val) ? val : [];
+  set items(val: CartItem[] | string) {
+    if (typeof val === 'string') {
+      try { this._items = JSON.parse(val); } catch { this._items = []; }
+    } else {
+      this._items = Array.isArray(val) ? val : [];
+    }
     if (this.isConnected) this._render();
   }
 
@@ -59,6 +63,15 @@ class FwCartSidebar extends HTMLElement {
         this._attachKeyHandler();
       } else {
         this._detachKeyHandler();
+      }
+    } else if (name === 'items') {
+      if (newVal) {
+        try {
+          this._items = JSON.parse(newVal);
+          this._render();
+        } catch (e) {
+          console.error('Failed to parse cart items:', e);
+        }
       }
     } else {
       this._render();

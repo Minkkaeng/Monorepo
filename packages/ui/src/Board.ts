@@ -30,8 +30,12 @@ class FwBoardList extends HTMLElement {
     return this._posts;
   }
 
-  set posts(val: BoardPost[]) {
-    this._posts = Array.isArray(val) ? val : [];
+  set posts(val: BoardPost[] | string) {
+    if (typeof val === 'string') {
+      try { this._posts = JSON.parse(val); } catch { this._posts = []; }
+    } else {
+      this._posts = Array.isArray(val) ? val : [];
+    }
     if (this.isConnected) {
       this._render();
       this._attachEvents();

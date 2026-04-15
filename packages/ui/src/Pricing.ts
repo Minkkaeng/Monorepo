@@ -25,8 +25,12 @@ class FwPricing extends HTMLElement {
     return this._plans;
   }
 
-  set plans(val: PricingPlan[]) {
-    this._plans = val;
+  set plans(val: PricingPlan[] | string) {
+    if (typeof val === 'string') {
+      try { this._plans = JSON.parse(val); } catch { this._plans = []; }
+    } else {
+      this._plans = Array.isArray(val) ? val : [];
+    }
     this._update();
   }
 
