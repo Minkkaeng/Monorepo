@@ -69,6 +69,8 @@ class FwButton extends HTMLElement {
   }
 }
 
-customElements.define('fw-button', FwButton);
+if (!customElements.get('fw-button')) {
+  customElements.define('fw-button', FwButton);
+}
 
 export { FwButton };

@@ -117,6 +117,8 @@ class FwHero extends HTMLElement {
   }
 }
 
-customElements.define('fw-hero', FwHero);
+if (!customElements.get('fw-hero')) {
+  customElements.define('fw-hero', FwHero);
+}
 
 export { FwHero };

@@ -54,7 +54,9 @@ class FwScrollProgress extends HTMLElement {
   }
 }
 
-customElements.define('fw-scroll-progress', FwScrollProgress);
+if (!customElements.get('fw-scroll-progress')) {
+  customElements.define('fw-scroll-progress', FwScrollProgress);
+}
 
 // ─── fw-scroll-to-top ────────────────────────────────────
 
@@ -141,7 +143,9 @@ class FwScrollToTop extends HTMLElement {
   }
 }
 
-customElements.define('fw-scroll-to-top', FwScrollToTop);
+if (!customElements.get('fw-scroll-to-top')) {
+  customElements.define('fw-scroll-to-top', FwScrollToTop);
+}
 
 // 개별 export
 export { FwScrollProgress, FwScrollToTop };

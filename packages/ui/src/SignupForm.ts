@@ -289,6 +289,8 @@ class FwSignupForm extends HTMLElement {
   }
 }
 
-customElements.define('fw-signup-form', FwSignupForm);
+if (!customElements.get('fw-signup-form')) {
+  customElements.define('fw-signup-form', FwSignupForm);
+}
 
 export { FwSignupForm };

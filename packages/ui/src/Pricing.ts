@@ -149,6 +149,8 @@ class FwPricing extends HTMLElement {
   }
 }
 
-customElements.define('fw-pricing', FwPricing);
+if (!customElements.get('fw-pricing')) {
+  customElements.define('fw-pricing', FwPricing);
+}
 
 export { FwPricing };

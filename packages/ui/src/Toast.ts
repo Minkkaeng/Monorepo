@@ -122,7 +122,11 @@ class FwToastContainer extends HTMLElement {
   }
 }
 
-customElements.define('fw-toast', FwToast);
-customElements.define('fw-toast-container', FwToastContainer);
+if (!customElements.get('fw-toast')) {
+  customElements.define('fw-toast', FwToast);
+}
+if (!customElements.get('fw-toast-container')) {
+  customElements.define('fw-toast-container', FwToastContainer);
+}
 
 export { FwToast, FwToastContainer };

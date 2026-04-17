@@ -135,6 +135,8 @@ class FwInput extends HTMLElement {
   }
 }
 
-customElements.define('fw-input', FwInput);
+if (!customElements.get('fw-input')) {
+  customElements.define('fw-input', FwInput);
+}
 
 export { FwInput };

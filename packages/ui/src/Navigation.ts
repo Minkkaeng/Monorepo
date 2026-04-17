@@ -103,6 +103,8 @@ class FwNavigation extends HTMLElement {
   }
 }
 
-customElements.define('fw-navigation', FwNavigation);
+if (!customElements.get('fw-navigation')) {
+  customElements.define('fw-navigation', FwNavigation);
+}
 
 export { FwNavigation };

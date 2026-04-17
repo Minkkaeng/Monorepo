@@ -138,7 +138,9 @@ class FwBoardList extends HTMLElement {
   }
 }
 
-customElements.define('fw-board-list', FwBoardList);
+if (!customElements.get('fw-board-list')) {
+  customElements.define('fw-board-list', FwBoardList);
+}
 
 // ─── fw-board-detail ─────────────────────────────────────
 
@@ -259,7 +261,9 @@ class FwBoardDetail extends HTMLElement {
   }
 }
 
-customElements.define('fw-board-detail', FwBoardDetail);
+if (!customElements.get('fw-board-detail')) {
+  customElements.define('fw-board-detail', FwBoardDetail);
+}
 
 // ─── fw-board-form ───────────────────────────────────────
 
@@ -390,7 +394,9 @@ class FwBoardForm extends HTMLElement {
   }
 }
 
-customElements.define('fw-board-form', FwBoardForm);
+if (!customElements.get('fw-board-form')) {
+  customElements.define('fw-board-form', FwBoardForm);
+}
 
 // 개별 export
 export { FwBoardList, FwBoardDetail, FwBoardForm };

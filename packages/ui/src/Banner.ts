@@ -227,6 +227,8 @@ class FwBanner extends HTMLElement {
   }
 }
 
-customElements.define('fw-banner', FwBanner);
+if (!customElements.get('fw-banner')) {
+  customElements.define('fw-banner', FwBanner);
+}
 
 export { FwBanner };

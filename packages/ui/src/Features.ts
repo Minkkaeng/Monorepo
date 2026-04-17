@@ -109,6 +109,8 @@ class FwFeatures extends HTMLElement {
   }
 }
 
-customElements.define('fw-features', FwFeatures);
+if (!customElements.get('fw-features')) {
+  customElements.define('fw-features', FwFeatures);
+}
 
 export { FwFeatures };

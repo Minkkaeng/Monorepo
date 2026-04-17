@@ -149,6 +149,8 @@ class FwContactForm extends HTMLElement {
   }
 }
 
-customElements.define('fw-contact-form', FwContactForm);
+if (!customElements.get('fw-contact-form')) {
+  customElements.define('fw-contact-form', FwContactForm);
+}
 
 export { FwContactForm };

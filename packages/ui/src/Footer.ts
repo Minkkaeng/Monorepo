@@ -163,6 +163,8 @@ class FwFooter extends HTMLElement {
   }
 }
 
-customElements.define('fw-footer', FwFooter);
+if (!customElements.get('fw-footer')) {
+  customElements.define('fw-footer', FwFooter);
+}
 
 export { FwFooter };

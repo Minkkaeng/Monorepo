@@ -131,6 +131,8 @@ class FwProductCard extends HTMLElement {
   }
 }
 
-customElements.define('fw-product-card', FwProductCard);
+if (!customElements.get('fw-product-card')) {
+  customElements.define('fw-product-card', FwProductCard);
+}
 
 export { FwProductCard };

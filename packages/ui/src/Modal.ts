@@ -143,6 +143,8 @@ class FwModal extends HTMLElement {
   }
 }
 
-customElements.define('fw-modal', FwModal);
+if (!customElements.get('fw-modal')) {
+  customElements.define('fw-modal', FwModal);
+}
 
 export { FwModal };

@@ -210,6 +210,8 @@ class FwAccordion extends HTMLElement {
   }
 }
 
-customElements.define('fw-accordion', FwAccordion);
+if (!customElements.get('fw-accordion')) {
+  customElements.define('fw-accordion', FwAccordion);
+}
 
 export { FwAccordion };

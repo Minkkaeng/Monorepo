@@ -227,6 +227,8 @@ class FwCartSidebar extends HTMLElement {
   }
 }
 
-customElements.define('fw-cart-sidebar', FwCartSidebar);
+if (!customElements.get('fw-cart-sidebar')) {
+  customElements.define('fw-cart-sidebar', FwCartSidebar);
+}
 
 export { FwCartSidebar };
